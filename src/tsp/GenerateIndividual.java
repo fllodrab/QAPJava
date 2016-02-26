@@ -1,7 +1,5 @@
 package tsp;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -16,12 +14,12 @@ public class GenerateIndividual {
     private double individualProfile;
     
     public GenerateIndividual(int[][] dstn, int[][] flws, int nUnits){
+        numUnits = nUnits;
         distances = new int[numUnits][numUnits];
         System.arraycopy(dstn, 0, distances, 0, dstn.length);
         flows = new int[numUnits][numUnits];
         System.arraycopy(flws, 0, flows, 0, flws.length);
         
-        numUnits = nUnits;
         units = new int[numUnits];
         
         for (int i = 0; i < numUnits; i++) {
@@ -43,6 +41,7 @@ public class GenerateIndividual {
      * @param generateIndividual 
      */
     GenerateIndividual(GenerateIndividual generateIndividual) {
+        numUnits = generateIndividual.distances.length;
         distances = new int[numUnits][numUnits];
         System.arraycopy(generateIndividual.distances, 0, distances, 0, generateIndividual.distances.length);
         flows = new int[numUnits][numUnits];
@@ -83,7 +82,7 @@ public class GenerateIndividual {
 
         for (int i = 0; i < numUnits; i++) {
             for (int j = 0; j < numUnits; j++) {
-                valor += flows[i][j] * flows[units[i]][units[j]];
+                valor += flows[i][j] * distances[units[i]][units[j]];
             }
         }
 
@@ -93,9 +92,11 @@ public class GenerateIndividual {
     @Override
     public String toString() {
         String cadena = null;
-
+        
+        System.out.println("Permutación del coste obtenido: ");
+        
         for (int i : units) {
-            cadena += "Unidad: [" + i + "]";
+            cadena += " " +i;
         }
 
         return cadena.substring(0, cadena.length() - 1);

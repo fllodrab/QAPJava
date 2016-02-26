@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Manages algorithms for evolving population / Gestiona los algoritmos para la evolución de la población
+ *
  * @author FllodraB
  */
-public class GA {
+public class BaldwinGA {
     /* GA parameters */
     private static final double mutationRate = 0.015;
     private static final int tournamentSize = 5;
@@ -19,7 +19,7 @@ public class GA {
     private GenerateIndividual bestCandidate;
     
     // Constructor
-    GA (int[][] dstn, int[][] flws, int nUnits) {
+    BaldwinGA (int[][] dstn, int[][] flws, int nUnits) {
         numUnits = nUnits;
         distances = new int[numUnits][numUnits];
         System.arraycopy(dstn, 0, distances, 0, dstn.length);
@@ -51,7 +51,7 @@ public class GA {
     public void evolvePopulation() {
         // Iniciamos población
         initPopulation();
-        System.out.println("Algoritmo Genético Estándar\n");
+        System.out.println("Algoritmo Genético Baldwiniano\n");
 
         // Crossover population / hacemos cruce
         for (int i = 1; i <= QAP.NUM_GENERATIONS; i++) {
@@ -163,19 +163,28 @@ public class GA {
      * @param population Población
      * @return bCandidate Mejor candidato
      */
-    private GenerateIndividual evaluate(GenerateIndividual[] population) {
+    private GenerateIndividual evaluate(GenerateIndividual[] pop) {
         GenerateIndividual bCandidate;
         int bestPosition = 0;
         double bestProfile = 0;
         
-        for (int i=0; i < population.length; i++) {
-            if (population[i].getIndividualProfile() < bestProfile) {
-                bestPosition = i;
-                bestProfile = population[i].getIndividualProfile();
+        // Modificación respecto al algoritmo original: aplicamos un algoritmo 
+        // greedy basado en 2-opt para el problema QAP
+        for (int i = 0; i < pop.length; i++) {
+            for (int j = i + 1; j < QAP.POPULATION_SIZE - 1; j++) {
+                GenerateIndividual aux = population[j];
+                population[j] = population[i];
+                population[i] = aux;
+
+                if (pop[i].getIndividualProfile()< bestProfile) {
+                    bestPosition = i;
+                    bestProfile = pop[i].getIndividualProfile();
+                }
             }
         }
-        
-        bCandidate = new GenerateIndividual(population[bestPosition]);
+
+        bCandidate = new GenerateIndividual(pop[bestPosition]);
+
         return bCandidate;
     }
 }

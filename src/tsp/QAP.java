@@ -23,6 +23,8 @@ public class QAP {
     private static int[][] distances;
     private static int[][] flows;
     private static GA geneticAlgorithm;
+    private static LamarckGA lamarckGeneticAlgorithm;
+    private static BaldwinGA baldwinGeneticAlgorithm;
 
     /**
      * @param args the command line arguments
@@ -49,12 +51,20 @@ public class QAP {
             }
         }
         
-        // Ejecutar algoritmos
+        // Inicializar algoritmos
         geneticAlgorithm = new GA (distances, flows, numUnits);
+        //lamarckGeneticAlgorithm = new LamarckGA(distances, flows, numUnits);
+        baldwinGeneticAlgorithm = new BaldwinGA(distances, flows, numUnits);
+        
+        // Ejecutar algoritmos
         geneticAlgorithm.evolvePopulation();
+        //lamarckGeneticAlgorithm.evolvePopulation();
+        baldwinGeneticAlgorithm.evolvePopulation();
         
         // Selección del mejor resultado
         GenerateIndividual bestCandidate = geneticAlgorithm.getBestCandidate();
+        //GenerateIndividual bestCandidateLamarck = lamarckGeneticAlgorithm.getBestCandidate();
+        GenerateIndividual bestCandidateBaldwin = baldwinGeneticAlgorithm.getBestCandidate();
 
         // Print final results
         System.out.println("\nParámetros:\n\tTamaño de población: "
@@ -63,7 +73,17 @@ public class QAP {
                 + QAP.TOURNAMENT_SIZE + "%\n\tProbabilidad de mutación: "
                 + (0.015 * 100) + "%");
 
+        // GA estandar
         System.out.println("\nAlgoritmo genético estándar\n\t");
         System.out.println(bestCandidate.toString() + " Coste asociado: " + bestCandidate.cost());
+        
+        // GA Lamarckiano
+        /*System.out.println("Algoritmo genético lamarckiano\n\t");
+        System.out.println(bestCandidateLamarck.toString() + "\n\tCoste asociado: " + bestCandidateLamarck.cost());*/
+        
+        
+        // GA Baldwiniano
+        System.out.println("Algoritmo genético baldwiniano\n\t");
+        System.out.println(bestCandidateBaldwin.toString() + "\n\tCoste asociado: " + bestCandidateBaldwin.cost());
         }
 }
