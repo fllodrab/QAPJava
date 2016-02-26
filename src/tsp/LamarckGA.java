@@ -1,7 +1,6 @@
 package tsp;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  *
@@ -60,7 +59,7 @@ public class LamarckGA {
         // Crossover population / hacemos cruce
         for (int i = 1; i <= QAP.NUM_GENERATIONS; i++) {
             generation = new ArrayList<GenerateIndividual>();
-            for (int j = 0; j < QAP.POPULATION_SIZE / 2; j++) {
+            for (int j = 0; j < QAP.POPULATION_SIZE; j++) {
                 // Select parents / Selección de padres
                 GenerateIndividual father = new GenerateIndividual(tournamentSelection(QAP.POPULATION_SIZE));
                 GenerateIndividual son = new GenerateIndividual(crossover(father));

@@ -53,17 +53,17 @@ public class QAP {
         
         // Inicializar algoritmos
         geneticAlgorithm = new GA (distances, flows, numUnits);
-        //lamarckGeneticAlgorithm = new LamarckGA(distances, flows, numUnits);
+        lamarckGeneticAlgorithm = new LamarckGA(distances, flows, numUnits);
         baldwinGeneticAlgorithm = new BaldwinGA(distances, flows, numUnits);
         
         // Ejecutar algoritmos
         geneticAlgorithm.evolvePopulation();
-        //lamarckGeneticAlgorithm.evolvePopulation();
+        lamarckGeneticAlgorithm.evolvePopulation();
         baldwinGeneticAlgorithm.evolvePopulation();
         
         // Selección del mejor resultado
         GenerateIndividual bestCandidate = geneticAlgorithm.getBestCandidate();
-        //GenerateIndividual bestCandidateLamarck = lamarckGeneticAlgorithm.getBestCandidate();
+        GenerateIndividual bestCandidateLamarck = lamarckGeneticAlgorithm.getBestCandidate();
         GenerateIndividual bestCandidateBaldwin = baldwinGeneticAlgorithm.getBestCandidate();
 
         // Print final results
@@ -78,12 +78,12 @@ public class QAP {
         System.out.println(bestCandidate.toString() + " Coste asociado: " + bestCandidate.cost());
         
         // GA Lamarckiano
-        /*System.out.println("Algoritmo genético lamarckiano\n\t");
-        System.out.println(bestCandidateLamarck.toString() + "\n\tCoste asociado: " + bestCandidateLamarck.cost());*/
+        System.out.println("\nAlgoritmo genético lamarckiano\n\t");
+        System.out.println(bestCandidateLamarck.toString() + "\n\tCoste asociado: " + bestCandidateLamarck.cost());
         
         
         // GA Baldwiniano
-        System.out.println("Algoritmo genético baldwiniano\n\t");
+        System.out.println("\nAlgoritmo genético baldwiniano\n\t");
         System.out.println(bestCandidateBaldwin.toString() + "\n\tCoste asociado: " + bestCandidateBaldwin.cost());
         }
 }

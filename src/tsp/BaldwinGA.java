@@ -168,8 +168,7 @@ public class BaldwinGA {
         int bestPosition = 0;
         double bestProfile = 0;
         
-        // Modificación respecto al algoritmo original: aplicamos un algoritmo 
-        // greedy basado en 2-opt para el problema QAP
+        // Aplicamos un algoritmo greedy basado en 2-opt para el problema QAP
         for (int i = 0; i < pop.length; i++) {
             for (int j = i + 1; j < QAP.POPULATION_SIZE - 1; j++) {
                 GenerateIndividual aux = population[j];
