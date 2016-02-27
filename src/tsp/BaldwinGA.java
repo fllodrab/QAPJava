@@ -51,7 +51,7 @@ public class BaldwinGA {
     public void evolvePopulation() {
         // Iniciamos población
         initPopulation();
-        System.out.println("Algoritmo Genético Baldwiniano\n");
+        System.out.println("\nAlgoritmo Genético Baldwiniano\n");
 
         // Crossover population / hacemos cruce
         for (int i = 1; i <= QAP.NUM_GENERATIONS; i++) {

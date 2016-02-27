@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class QAP {
     public static final int POPULATION_SIZE = 500;
-    public static final int NUM_GENERATIONS = 10;
+    public static final int NUM_GENERATIONS = 100;
     public static final int TOURNAMENT_SIZE = 5;
     
     private static int numUnits;
